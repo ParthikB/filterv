@@ -2,13 +2,13 @@ from distutils.core import setup
 setup(
   name = 'filterv',
   packages = ['filterv'],
-  version = '0.0.1',
+  version = '0.0.2',
   license='MIT',
   description = "Visualizing what the filter values do to an image made easy! Just a few steps and you're good to go!",
   author = 'Parthik Bhandari',
   author_email = 'connect2parthik@gmail.com',
   url = 'https://github.com/ParthikB/filterv',
-  download_url = 'https://github.com/ParthikB/filterv/archive/v0.0.1.tar.gz',
+  download_url = 'https://github.com/ParthikB/filterv/archive/v0.0.2.tar.gz',
   keywords = ['filter', 'visual', 'machine learning', 'CNN', 'Convolutional', 'images', 'plot'],
   install_requires=[
           'opencv-python',
