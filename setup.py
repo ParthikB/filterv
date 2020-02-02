@@ -23,7 +23,7 @@ setup(
     'Development Status :: 3 - Alpha',
 
     # Indicate who your project is intended for
-    'Intended Audience :: Learners',
+    'Intended Audience :: Developers',
 
     # Pick your license as you wish
     
