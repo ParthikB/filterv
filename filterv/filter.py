@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 class Filter:
 	def __init__(self):
-		self.image          = None
+		self.image              = None
 		self.original_img 	= None
 		self.output_img 	= None
 		self.FILTER_SIZE 	= None
@@ -14,8 +14,8 @@ class Filter:
 		self.filter_vals 	= None
 		self.img_row 		= None
 		self.img_col 		= None
-		self.output_row_dim = None
-		self.output_col_dim = None
+		self.output_row_dim     = None
+		self.output_col_dim     = None
 
 	def load_img(self, path, resize=None):
 		img = cv2.imread(path, 0)
@@ -67,8 +67,8 @@ class Filter:
 		self.filter_vals 	= filter_vals
 		self.img_row 		= img_row
 		self.img_col 		= img_col
-		self.output_row_dim = output_row_dim
-		self.output_col_dim = output_col_dim
+		self.output_row_dim     = output_row_dim
+		self.output_col_dim     = output_col_dim
 
 
 
@@ -91,8 +91,8 @@ class Filter:
 				output.append(output_pixel)
 
 
-		output = np.array(output)
-		output_img = output.reshape(self.output_row_dim, self.output_col_dim)
+		output          = np.array(output)
+		output_img      = output.reshape(self.output_row_dim, self.output_col_dim)
 		self.output_img = output_img
 
 		return output_img
@@ -111,15 +111,20 @@ class Filter:
 
 if __name__ == '__main__':
 	
+	# Initializing the Filter Class
 	f = Filter()
 	
-	original_img = f.load_img('dummy.jpg')
+	# Loading the image.
+	original_img = f.load_img(path='dummy.jpg')
 	
+	# Parameter dive
 	f.parameters(stride=2, 
-				 filter_size=3, 
-				 filter_vals=[1, 1, 1, 0, 0, 0, -1, -1, -1])
+		     filter_size=3, 
+		     filter_vals=[1, 1, 1, 0, 0, 0, -1, -1, -1])
 	
+	# Converting
 	filtered_img = f.convert()
 	
+	# Comparing the two images
 	f.compare(original_img=original_img, 
-			  filtered_img=filtered_img)
+	          filtered_img=filtered_img)
