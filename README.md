@@ -29,7 +29,7 @@ It's super easy to use...!
     F.plot(input_img, output_img)          # Plot the outputs
     
 License
-----
+--------
 
 MIT
 

@@ -42,26 +42,28 @@ class Filter:
 		return val
 
 
-	def parameters(self, STRIDE=0, FILTER_SIZE=0, filter_vals=[]):
-		if not STRIDE: 		STRIDE			 = int(input('Enter Stride      : '))
-		if not FILTER_SIZE: FILTER_SIZE 	 = int(input('Enter Filter Size : '))
+	def parameters(self, stride: int, filter_size: int, filter_vals: list=[]):
 
+		if type(stride) != int or type(filter_size) != int:
+				raise ValueError('Invalid parameter type.')
+		
 		# filter_vals		 = [1, 1, 1, 0, 0, 0, -1, -1, -1]
 		if not filter_vals:
-			for i in range(FILTER_SIZE**2):
+			for i in range(filter_size**2):
 				val = self.__input_filter_val(i)
 				filter_vals.append(val)
 
-		elif len(filter_vals) != FILTER_SIZE**2:
+		elif len(filter_vals) != filter_size**2:
 				raise ValueError('Invalid number of Filter Values.')
 
 		
+		
 		img_row, img_col = self.image.shape
-		output_row_dim 	 = self.output_dim(img_row, FILTER_SIZE, STRIDE)
-		output_col_dim 	 = self.output_dim(img_col, FILTER_SIZE, STRIDE)
+		output_row_dim 	 = self.output_dim(img_row, filter_size, stride)
+		output_col_dim 	 = self.output_dim(img_col, filter_size, stride)
 
-		self.FILTER_SIZE 	= FILTER_SIZE
-		self.STRIDE 		= STRIDE
+		self.filter_size 	= filter_size
+		self.stride 		= stride
 		self.filter_vals 	= filter_vals
 		self.img_row 		= img_row
 		self.img_col 		= img_col
@@ -73,11 +75,11 @@ class Filter:
 	def convert(self):
 		output = []
 		# Try doing this in one for-loop by unrolling the image to a vector.
-		for i in tqdm(range(0, self.img_row-self.FILTER_SIZE+1, self.STRIDE)):
-			rows = [i+x for x in range(self.FILTER_SIZE)]
+		for i in tqdm(range(0, self.img_row-self.filter_size+1, self.stride)):
+			rows = [i+x for x in range(self.filter_size)]
 
-			for j in range(0, self.img_col-self.FILTER_SIZE+1, self.STRIDE):
-				cols = [j+x for x in range(self.FILTER_SIZE)]
+			for j in range(0, self.img_col-self.filter_size+1, self.stride):
+				cols = [j+x for x in range(self.filter_size)]
 
 				img_vector = []
 				for row in rows:
@@ -96,12 +98,12 @@ class Filter:
 		return output_img
 		
 
-	def plot(self):
+	def compare(self, original_img, filtered_img):
 		ax1 = plt.subplot(1, 2, 1)
-		ax1.imshow(self.original_img)
+		ax1.imshow(original_img)
 		plt.title('Original Image')
 		ax2 = plt.subplot(1, 2, 2)
-		ax2.imshow(self.output_img, cmap='gray')
+		ax2.imshow(filtered_img, cmap='gray')
 		plt.title('Filtered Image')
 
 		plt.show()
@@ -110,11 +112,14 @@ class Filter:
 if __name__ == '__main__':
 	
 	f = Filter()
-
-	img = f.load_img('dummy.jpg')
-
-	f.parameters()
-
-	output_img = f.convert()
-
-	f.plot(img, output_img)
+	
+	original_img = f.load_img('dummy.jpg')
+	
+	f.parameters(stride=2, 
+				 filter_size=3, 
+				 filter_vals=[1, 1, 1, 0, 0, 0, -1, -1, -1])
+	
+	filtered_img = f.convert()
+	
+	f.compare(original_img=original_img, 
+			  filtered_img=filtered_img)
