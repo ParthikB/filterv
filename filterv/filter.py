@@ -5,17 +5,6 @@ from tqdm import tqdm
 
 
 class Filter:
-	def __init__(self):
-		self.image              = None
-		self.original_img 	= None
-		self.output_img 	= None
-		self.FILTER_SIZE 	= None
-		self.STRIDE 		= None
-		self.filter_vals 	= None
-		self.img_row 		= None
-		self.img_col 		= None
-		self.output_row_dim     = None
-		self.output_col_dim     = None
 
 	def load_img(self, path, resize=None):
 		img = cv2.imread(path, 0)
@@ -67,8 +56,8 @@ class Filter:
 		self.filter_vals 	= filter_vals
 		self.img_row 		= img_row
 		self.img_col 		= img_col
-		self.output_row_dim     = output_row_dim
-		self.output_col_dim     = output_col_dim
+		self.output_row_dim = output_row_dim
+		self.output_col_dim = output_col_dim
 
 
 
@@ -91,9 +80,8 @@ class Filter:
 				output.append(output_pixel)
 
 
-		output          = np.array(output)
-		output_img      = output.reshape(self.output_row_dim, self.output_col_dim)
-		self.output_img = output_img
+		output = np.array(output)
+		output_img = output.reshape(self.output_row_dim, self.output_col_dim)
 
 		return output_img
 		
@@ -108,6 +96,7 @@ class Filter:
 
 		plt.show()
 
+		
 
 if __name__ == '__main__':
 	
