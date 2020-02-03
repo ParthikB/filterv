@@ -38,6 +38,7 @@ class Filter:
 		
 		# filter_vals		 = [1, 1, 1, 0, 0, 0, -1, -1, -1]
 		if not filter_vals:
+			print(); print('Enter filter values >')
 			for i in range(filter_size**2):
 				val = self.__input_filter_val(i)
 				filter_vals.append(val)
